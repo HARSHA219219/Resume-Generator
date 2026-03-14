@@ -5,127 +5,259 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LaTeX Resume Generator</title>
-
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Fira+Code:wght@400;500&display=swap"
         rel="stylesheet">
-
-    <!-- Custom CSS -->
-    <link rel="stylesheet" href="landing-style.css">
-
-    <!-- Icons -->
+    <!-- CSS -->
+    <link rel="stylesheet" href="style.css">
+    <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
 </head>
 
 <body>
-
-    <div class="app-wrapper">
-        <!-- Header -->
-        <header class="navbar">
-            <div class="logo">
+    <div class="app-container">
+        <!-- Sidebar Navigation (Optional, for sections) but we'll use a scrolling main form -->
+        <header class="app-header">
+            <div class="header-content">
                 <i data-lucide="file-text" class="logo-icon"></i>
-                <span>ResuTech<span class="highlight">LaTeX</span></span>
+                <h1>ResuTech<span class="highlight">LaTeX</span></h1>
             </div>
-            <a href="index.html" class="btn btn-primary pulse-hover">Start Building</a>
+            <div class="header-actions">
+                <button id="copy-btn" class="btn btn-secondary">
+                    <i data-lucide="copy"></i> Copy code
+                </button>
+                <form method="POST" action="https://www.overleaf.com/docs" target="_blank" id="overleaf-form"
+                    class="inline-form">
+                    <textarea name="snip" id="overleaf-snip" style="display:none;"></textarea>
+                    <button type="submit" id="export-btn" class="btn btn-primary">
+                        <i data-lucide="external-link"></i> Export to Overleaf
+                    </button>
+                </form>
+            </div>
         </header>
 
-        <!-- Main Content (Single Screen Layout) -->
-        <main class="main-grid">
-
-            <!-- Left Column: Hero & Steps -->
-            <div class="left-col">
-                <div class="hero-content">
-                    <h1 class="hero-title">Professional Resumes in <span class="highlight-gradient">Perfect LaTeX</span>
-                    </h1>
-                    <p class="hero-desc">
-                        Create clean, professional resumes using LaTeX without writing any code. Simply enter your
-                        details, follow the steps below, and let our tool generate the LaTeX format for you.
-                    </p>
-                </div>
-
-                <h3 class="section-heading">Steps to Generate Your Resume</h3>
-                <div class="steps-container">
-                    <div class="step-card">
-                        <div class="step-num">01</div>
-                        <div class="step-text">
-                            <strong>Click the button below</strong>
-                            <span>Start creating your resume.</span>
+        <main class="main-content">
+            <!-- Left Form Workspace -->
+            <section class="form-workspace scrollable">
+                <div class="form-section">
+                    <h2>Personal Details</h2>
+                    <div class="grid-2">
+                        <div class="input-group">
+                            <label>Full Name</label>
+                            <input type="text" id="pd-name" placeholder="John Doe">
+                        </div>
+                        <div class="input-group">
+                            <label>Roll Number</label>
+                            <input type="text" id="pd-roll" placeholder="23110349">
+                        </div>
+                        <div class="input-group">
+                            <label>Current Year</label>
+                            <input type="text" id="pd-year" placeholder="Junior Undergraduate">
+                        </div>
+                        <div class="input-group">
+                            <label>Program / Discipline</label>
+                            <input type="text" id="pd-program"
+                                placeholder="Discipline of Computer Science and Engineering">
+                        </div>
+                        <div class="input-group">
+                            <label>Institution Name</label>
+                            <input type="text" id="pd-institution" placeholder="IIT Gandhinagar">
+                        </div>
+                        <div class="input-group">
+                            <label>Email</label>
+                            <input type="email" id="pd-email" placeholder="john.doe@example.com">
+                        </div>
+                        <div class="input-group">
+                            <label>Phone Number</label>
+                            <input type="tel" id="pd-phone" placeholder="+91 9876543210">
+                        </div>
+                        <div class="input-group">
+                            <label>GitHub Link</label>
+                            <input type="url" id="pd-github" placeholder="github.com/johndoe">
+                        </div>
+                        <div class="input-group">
+                            <label>LinkedIn Link</label>
+                            <input type="url" id="pd-linkedin" placeholder="linkedin.com/in/johndoe">
+                        </div>
+                        <div class="input-group">
+                            <label>Website Link</label>
+                            <input type="url" id="pd-website" placeholder="johndoe.com">
                         </div>
                     </div>
-                    <div class="step-card">
-                        <div class="step-num">02</div>
-                        <div class="step-text">
-                            <strong>Fill in details</strong>
-                            <span>Add personal information and history.</span>
+                </div>
+
+                <div class="form-section">
+                    <h2>Academic Details</h2>
+                    <p class="section-desc">Add your academic qualifications.</p>
+                    <div id="academic-list" class="item-list"></div>
+                    <div class="form-builder" id="academic-form">
+                        <div class="grid-2">
+                            <input type="text" id="ac-degree" placeholder="Degree (e.g. B.Tech)">
+                            <input type="text" id="ac-specialization" placeholder="Specialization">
+                            <input type="text" id="ac-institute" placeholder="Institute Name">
+                            <input type="text" id="ac-year" placeholder="Year (e.g. 2023-Present)">
+                            <input type="text" id="ac-cpi" placeholder="CPI / Percentage">
                         </div>
+                        <button class="btn btn-outline" id="add-academic-btn">
+                            <i data-lucide="plus"></i> Add Academic Record
+                        </button>
                     </div>
-                    <div class="step-card">
-                        <div class="step-num">03</div>
-                        <div class="step-text">
-                            <strong>Copy code</strong>
-                            <span>Copy the generated LaTeX directly.</span>
+                </div>
+
+                <div class="form-section">
+                    <h2>Skills</h2>
+                    <p class="section-desc">Add your skills grouped by category.</p>
+                    <div id="skills-list" class="item-list"></div>
+                    <div class="form-builder" id="skill-form">
+                        <div class="grid-2">
+                            <input type="text" id="sk-category" placeholder="Category (e.g. Programming)">
+                            <input type="text" id="sk-description" placeholder="Description (e.g. C++, Python, Java)">
                         </div>
+                        <button class="btn btn-outline" id="add-skill-btn">
+                            <i data-lucide="plus"></i> Add Skill
+                        </button>
                     </div>
-                    <div class="step-card">
-                        <div class="step-num">04</div>
-                        <div class="step-text">
-                            <strong>Compile</strong>
-                            <span>Paste into Overleaf and click compile.</span>
+                </div>
+
+                <div class="form-section">
+                    <h2>Coursework</h2>
+                    <p class="section-desc">Add relevant coursework.</p>
+                    <div id="coursework-list" class="item-list"></div>
+                    <div class="form-builder" id="coursework-form">
+                        <input type="text" id="cw-name" placeholder="Course Name (e.g. Operating System)">
+                        <button class="btn btn-outline" id="add-coursework-btn">
+                            <i data-lucide="plus"></i> Add Coursework
+                        </button>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <h2>Projects</h2>
+                    <p class="section-desc">Highlight your key projects.</p>
+                    <div id="projects-list" class="item-list"></div>
+                    <div class="form-builder" id="project-form">
+                        <input type="text" id="pj-title" placeholder="Project Title">
+                        <div class="grid-2">
+                            <input type="text" id="pj-advisor" placeholder="Advisor Name">
+                            <input type="text" id="pj-duration" placeholder="Duration">
+                            <input type="url" id="pj-link" placeholder="Project Link (GitHub/Drive)">
+                        </div>
+                        <input type="text" id="pj-desc1" placeholder="Description Line 1">
+                        <input type="text" id="pj-desc2" placeholder="Description Line 2">
+                        <button class="btn btn-outline" id="add-project-btn">
+                            <i data-lucide="plus"></i> Add Project
+                        </button>
+                    </div>
+                </div>
+
+                <div class="form-section toggle-section">
+                    <div class="section-header-row">
+                        <h2>Internships</h2>
+                        <label class="switch">
+                            <input type="checkbox" id="enable-internships">
+                            <span class="slider round"></span>
+                        </label>
+                    </div>
+                    <div class="toggleable-content" id="internships-content">
+                        <div id="internships-list" class="item-list"></div>
+                        <div class="form-builder" id="internship-form">
+                            <div class="grid-2">
+                                <input type="text" id="in-company" placeholder="Company Name">
+                                <input type="text" id="in-duration" placeholder="Duration">
+                            </div>
+                            <input type="text" id="in-description" placeholder="Description of work">
+                            <button class="btn btn-outline" id="add-internship-btn">
+                                <i data-lucide="plus"></i> Add Internship
+                            </button>
                         </div>
                     </div>
                 </div>
 
-                <div class="action-row">
-                    <a href="index.html" class="btn btn-primary btn-lg shine-btn">
-                        Create My Resume
-                    </a>
-                </div>
-            </div>
-
-            <!-- Right Column: Sample Preview -->
-            <div class="right-col">
-                <div class="sample-wrapper">
-                    <div class="sample-header">
-                        <h3>Here's a Sample Resume Generated Using This Tool</h3>
-                        <a href="Sample Resume.png" target="_blank" class="btn btn-outline btn-sm">
-                            <i data-lucide="external-link"></i> View Sample Resume
-                        </a>
-                    </div>
-                    <div class="image-mockup">
-                        <img src="Sample Resume.png" alt="Sample Generated Resume">
+                <div class="form-section">
+                    <h2>Positions of Responsibility</h2>
+                    <div id="por-list" class="item-list"></div>
+                    <div class="form-builder" id="por-form">
+                        <div class="grid-2">
+                            <input type="text" id="por-position" placeholder="Position">
+                            <input type="text" id="por-organization" placeholder="Organization">
+                            <input type="text" id="por-duration" placeholder="Duration">
+                        </div>
+                        <input type="text" id="por-description" placeholder="Description">
+                        <button class="btn btn-outline" id="add-por-btn">
+                            <i data-lucide="plus"></i> Add Position
+                        </button>
                     </div>
                 </div>
-            </div>
 
+                <div class="form-section">
+                    <h2>Achievements</h2>
+                    <div id="achievements-list" class="item-list"></div>
+                    <div class="form-builder" id="achievement-form">
+                        <input type="text" id="ach-description" placeholder="Achievement Description">
+                        <button class="btn btn-outline" id="add-achievement-btn">
+                            <i data-lucide="plus"></i> Add Achievement
+                        </button>
+                    </div>
+                </div>
+
+                <div class="form-section toggle-section">
+                    <div class="section-header-row">
+                        <h2>Extracurricular Activities</h2>
+                        <label class="switch">
+                            <input type="checkbox" id="enable-extracurriculars">
+                            <span class="slider round"></span>
+                        </label>
+                    </div>
+                    <div class="toggleable-content" id="extracurriculars-content">
+                        <div id="extracurriculars-list" class="item-list"></div>
+                        <div class="form-builder" id="extracurricular-form">
+                            <input type="text" id="ex-activity" placeholder="Activity Name">
+                            <input type="text" id="ex-description" placeholder="Description">
+                            <button class="btn btn-outline" id="add-extracurricular-btn">
+                                <i data-lucide="plus"></i> Add Activity
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+            </section>
+
+            <!-- Right Preview Workspace -->
+            <section class="preview-workspace">
+                <div class="preview-header">
+                    <div class="tabs">
+                        <button class="tab-btn active" id="tab-visual"><i data-lucide="layout-template"></i> Visual
+                            Preview</button>
+                        <button class="tab-btn" id="tab-code"><i data-lucide="code"></i> LaTeX Code</button>
+                    </div>
+                    <div class="status-indicator">
+                        <span class="pulse"></span> Live Update Active
+                    </div>
+                </div>
+
+                <div class="preview-notice">
+                    <i data-lucide="info"></i>
+                    This preview provides an approximation of the layout and may differ slightly from the final LaTeX
+                    PDF output.
+                </div>
+
+                <!-- Visual Preview Pane -->
+                <div class="visual-container active" id="visual-pane">
+                    <div class="resume-paper" id="resume-preview"></div>
+                </div>
+
+                <!-- Code Preview Pane -->
+                <div class="code-container" id="code-pane">
+                    <pre><code id="latex-preview" class="language-latex"></code></pre>
+                </div>
+            </section>
         </main>
-        <br>
-        <!-- Footer -->
-        <footer class="simple-footer">
-            <div class="footer-layout">
-                <div class="footer-col">
-                    <h4 class="footer-heading">Professional LaTeX Resume Generator </h4>
-                    <a href="mailto:harshavardhannayak2005@gmail.com"
-                        class="footer-link">harshavardhannayak2005@gmail.com</a>
-                    <a href="mailto:sailajam384@gmail.com" class="footer-link">sailajam384@gmail.com</a>
-                </div>
-
-                <div class="footer-col">
-                    <h4 class="footer-heading">Open Source</h4>
-                    <a href="https://github.com/HARSHA219219/Resume-Generator.git" class="footer-link">GitHub Link</a>
-                    <p class="footer-note">To report a bug or request a new feature, use the GitHub link above and
-                        create a pull request.</p>
-                </div>
-            </div>
-
-            <div class="footer-bottom">
-                <p>&copy; 2026 Vadithya Harsha Vardhan Nayak & Sailaja Mudu. All Rights Reserved.</p>
-            </div>
-        </footer>
     </div>
 
-    <!-- Script Initialization -->
+    <script src="script.js"></script>
     <script>
         lucide.createIcons();
     </script>
