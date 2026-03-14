@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LaTeX Resume Generator</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="landing-style.css">
+
+    <!-- Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+
+<body>
+
+    <div class="app-wrapper">
+        <!-- Header -->
+        <header class="navbar">
+            <div class="logo">
+                <i data-lucide="file-text" class="logo-icon"></i>
+                <span>ResuTech<span class="highlight">LaTeX</span></span>
+            </div>
+            <a href="index.html" class="btn btn-primary pulse-hover">Start Building</a>
+        </header>
+
+        <!-- Main Content (Single Screen Layout) -->
+        <main class="main-grid">
+
+            <!-- Left Column: Hero & Steps -->
+            <div class="left-col">
+                <div class="hero-content">
+                    <h1 class="hero-title">Professional Resumes in <span class="highlight-gradient">Perfect LaTeX</span>
+                    </h1>
+                    <p class="hero-desc">
+                        Create clean, professional resumes using LaTeX without writing any code. Simply enter your
+                        details, follow the steps below, and let our tool generate the LaTeX format for you.
+                    </p>
+                </div>
+
+                <h3 class="section-heading">Steps to Generate Your Resume</h3>
+                <div class="steps-container">
+                    <div class="step-card">
+                        <div class="step-num">01</div>
+                        <div class="step-text">
+                            <strong>Click the button below</strong>
+                            <span>Start creating your resume.</span>
+                        </div>
+                    </div>
+                    <div class="step-card">
+                        <div class="step-num">02</div>
+                        <div class="step-text">
+                            <strong>Fill in details</strong>
+                            <span>Add personal information and history.</span>
+                        </div>
+                    </div>
+                    <div class="step-card">
+                        <div class="step-num">03</div>
+                        <div class="step-text">
+                            <strong>Copy code</strong>
+                            <span>Copy the generated LaTeX directly.</span>
+                        </div>
+                    </div>
+                    <div class="step-card">
+                        <div class="step-num">04</div>
+                        <div class="step-text">
+                            <strong>Compile</strong>
+                            <span>Paste into Overleaf and click compile.</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="action-row">
+                    <a href="index.html" class="btn btn-primary btn-lg shine-btn">
+                        Create My Resume
+                    </a>
+                </div>
+            </div>
+
+            <!-- Right Column: Sample Preview -->
+            <div class="right-col">
+                <div class="sample-wrapper">
+                    <div class="sample-header">
+                        <h3>Here's a Sample Resume Generated Using This Tool</h3>
+                        <a href="Sample Resume.png" target="_blank" class="btn btn-outline btn-sm">
+                            <i data-lucide="external-link"></i> View Sample Resume
+                        </a>
+                    </div>
+                    <div class="image-mockup">
+                        <img src="Sample Resume.png" alt="Sample Generated Resume">
+                    </div>
+                </div>
+            </div>
+
+        </main>
+        <br>
+        <!-- Footer -->
+        <footer class="simple-footer">
+            <div class="footer-layout">
+                <div class="footer-col">
+                    <h4 class="footer-heading">Professional LaTeX Resume Generator </h4>
+                    <a href="mailto:harshavardhannayak2005@gmail.com"
+                        class="footer-link">harshavardhannayak2005@gmail.com</a>
+                    <a href="mailto:sailajam384@gmail.com" class="footer-link">sailajam384@gmail.com</a>
+                </div>
+
+                <div class="footer-col">
+                    <h4 class="footer-heading">Open Source</h4>
+                    <a href="https://github.com/HARSHA219219/Resume-Generator.git" class="footer-link">GitHub Link</a>
+                    <p class="footer-note">To report a bug or request a new feature, use the GitHub link above and
+                        create a pull request.</p>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2026 Vadithya Harsha Vardhan Nayak & Sailaja Mudu. All Rights Reserved.</p>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Script Initialization -->
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+
+</html>

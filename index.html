@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LaTeX Resume Generator</title>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Fira+Code:wght@400;500&display=swap"
+        rel="stylesheet">
+    <!-- CSS -->
+    <link rel="stylesheet" href="style.css">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+
+<body>
+    <div class="app-container">
+        <!-- Sidebar Navigation (Optional, for sections) but we'll use a scrolling main form -->
+        <header class="app-header">
+            <div class="header-content">
+                <i data-lucide="file-text" class="logo-icon"></i>
+                <h1>ResuTech<span class="highlight">LaTeX</span></h1>
+            </div>
+            <div class="header-actions">
+                <button id="copy-btn" class="btn btn-secondary">
+                    <i data-lucide="copy"></i> Copy code
+                </button>
+                <form method="POST" action="https://www.overleaf.com/docs" target="_blank" id="overleaf-form"
+                    class="inline-form">
+                    <textarea name="snip" id="overleaf-snip" style="display:none;"></textarea>
+                    <button type="submit" id="export-btn" class="btn btn-primary">
+                        <i data-lucide="external-link"></i> Export to Overleaf
+                    </button>
+                </form>
+            </div>
+        </header>
+
+        <main class="main-content">
+            <!-- Left Form Workspace -->
+            <section class="form-workspace scrollable">
+                <div class="form-section">
+                    <h2>Personal Details</h2>
+                    <div class="grid-2">
+                        <div class="input-group">
+                            <label>Full Name</label>
+                            <input type="text" id="pd-name" placeholder="John Doe">
+                        </div>
+                        <div class="input-group">
+                            <label>Roll Number</label>
+                            <input type="text" id="pd-roll" placeholder="23110349">
+                        </div>
+                        <div class="input-group">
+                            <label>Current Year</label>
+                            <input type="text" id="pd-year" placeholder="Junior Undergraduate">
+                        </div>
+                        <div class="input-group">
+                            <label>Program / Discipline</label>
+                            <input type="text" id="pd-program"
+                                placeholder="Discipline of Computer Science and Engineering">
+                        </div>
+                        <div class="input-group">
+                            <label>Institution Name</label>
+                            <input type="text" id="pd-institution" placeholder="IIT Gandhinagar">
+                        </div>
+                        <div class="input-group">
+                            <label>Email</label>
+                            <input type="email" id="pd-email" placeholder="john.doe@example.com">
+                        </div>
+                        <div class="input-group">
+                            <label>Phone Number</label>
+                            <input type="tel" id="pd-phone" placeholder="+91 9876543210">
+                        </div>
+                        <div class="input-group">
+                            <label>GitHub Link</label>
+                            <input type="url" id="pd-github" placeholder="github.com/johndoe">
+                        </div>
+                        <div class="input-group">
+                            <label>LinkedIn Link</label>
+                            <input type="url" id="pd-linkedin" placeholder="linkedin.com/in/johndoe">
+                        </div>
+                        <div class="input-group">
+                            <label>Website Link</label>
+                            <input type="url" id="pd-website" placeholder="johndoe.com">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <h2>Academic Details</h2>
+                    <p class="section-desc">Add your academic qualifications.</p>
+                    <div id="academic-list" class="item-list"></div>
+                    <div class="form-builder" id="academic-form">
+                        <div class="grid-2">
+                            <input type="text" id="ac-degree" placeholder="Degree (e.g. B.Tech)">
+                            <input type="text" id="ac-specialization" placeholder="Specialization">
+                            <input type="text" id="ac-institute" placeholder="Institute Name">
+                            <input type="text" id="ac-year" placeholder="Year (e.g. 2023-Present)">
+                            <input type="text" id="ac-cpi" placeholder="CPI / Percentage">
+                        </div>
+                        <button class="btn btn-outline" id="add-academic-btn">
+                            <i data-lucide="plus"></i> Add Academic Record
+                        </button>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <h2>Skills</h2>
+                    <p class="section-desc">Add your skills grouped by category.</p>
+                    <div id="skills-list" class="item-list"></div>
+                    <div class="form-builder" id="skill-form">
+                        <div class="grid-2">
+                            <input type="text" id="sk-category" placeholder="Category (e.g. Programming)">
+                            <input type="text" id="sk-description" placeholder="Description (e.g. C++, Python, Java)">
+                        </div>
+                        <button class="btn btn-outline" id="add-skill-btn">
+                            <i data-lucide="plus"></i> Add Skill
+                        </button>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <h2>Coursework</h2>
+                    <p class="section-desc">Add relevant coursework.</p>
+                    <div id="coursework-list" class="item-list"></div>
+                    <div class="form-builder" id="coursework-form">
+                        <input type="text" id="cw-name" placeholder="Course Name (e.g. Operating System)">
+                        <button class="btn btn-outline" id="add-coursework-btn">
+                            <i data-lucide="plus"></i> Add Coursework
+                        </button>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <h2>Projects</h2>
+                    <p class="section-desc">Highlight your key projects.</p>
+                    <div id="projects-list" class="item-list"></div>
+                    <div class="form-builder" id="project-form">
+                        <input type="text" id="pj-title" placeholder="Project Title">
+                        <div class="grid-2">
+                            <input type="text" id="pj-advisor" placeholder="Advisor Name">
+                            <input type="text" id="pj-duration" placeholder="Duration">
+                            <input type="url" id="pj-link" placeholder="Project Link (GitHub/Drive)">
+                        </div>
+                        <input type="text" id="pj-desc1" placeholder="Description Line 1">
+                        <input type="text" id="pj-desc2" placeholder="Description Line 2">
+                        <button class="btn btn-outline" id="add-project-btn">
+                            <i data-lucide="plus"></i> Add Project
+                        </button>
+                    </div>
+                </div>
+
+                <div class="form-section toggle-section">
+                    <div class="section-header-row">
+                        <h2>Internships</h2>
+                        <label class="switch">
+                            <input type="checkbox" id="enable-internships">
+                            <span class="slider round"></span>
+                        </label>
+                    </div>
+                    <div class="toggleable-content" id="internships-content">
+                        <div id="internships-list" class="item-list"></div>
+                        <div class="form-builder" id="internship-form">
+                            <div class="grid-2">
+                                <input type="text" id="in-company" placeholder="Company Name">
+                                <input type="text" id="in-duration" placeholder="Duration">
+                            </div>
+                            <input type="text" id="in-description" placeholder="Description of work">
+                            <button class="btn btn-outline" id="add-internship-btn">
+                                <i data-lucide="plus"></i> Add Internship
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <h2>Positions of Responsibility</h2>
+                    <div id="por-list" class="item-list"></div>
+                    <div class="form-builder" id="por-form">
+                        <div class="grid-2">
+                            <input type="text" id="por-position" placeholder="Position">
+                            <input type="text" id="por-organization" placeholder="Organization">
+                            <input type="text" id="por-duration" placeholder="Duration">
+                        </div>
+                        <input type="text" id="por-description" placeholder="Description">
+                        <button class="btn btn-outline" id="add-por-btn">
+                            <i data-lucide="plus"></i> Add Position
+                        </button>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <h2>Achievements</h2>
+                    <div id="achievements-list" class="item-list"></div>
+                    <div class="form-builder" id="achievement-form">
+                        <input type="text" id="ach-description" placeholder="Achievement Description">
+                        <button class="btn btn-outline" id="add-achievement-btn">
+                            <i data-lucide="plus"></i> Add Achievement
+                        </button>
+                    </div>
+                </div>
+
+                <div class="form-section toggle-section">
+                    <div class="section-header-row">
+                        <h2>Extracurricular Activities</h2>
+                        <label class="switch">
+                            <input type="checkbox" id="enable-extracurriculars">
+                            <span class="slider round"></span>
+                        </label>
+                    </div>
+                    <div class="toggleable-content" id="extracurriculars-content">
+                        <div id="extracurriculars-list" class="item-list"></div>
+                        <div class="form-builder" id="extracurricular-form">
+                            <input type="text" id="ex-activity" placeholder="Activity Name">
+                            <input type="text" id="ex-description" placeholder="Description">
+                            <button class="btn btn-outline" id="add-extracurricular-btn">
+                                <i data-lucide="plus"></i> Add Activity
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+            </section>
+
+            <!-- Right Preview Workspace -->
+            <section class="preview-workspace">
+                <div class="preview-header">
+                    <div class="tabs">
+                        <button class="tab-btn active" id="tab-visual"><i data-lucide="layout-template"></i> Visual
+                            Preview</button>
+                        <button class="tab-btn" id="tab-code"><i data-lucide="code"></i> LaTeX Code</button>
+                    </div>
+                    <div class="status-indicator">
+                        <span class="pulse"></span> Live Update Active
+                    </div>
+                </div>
+
+                <div class="preview-notice">
+                    <i data-lucide="info"></i>
+                    This preview provides an approximation of the layout and may differ slightly from the final LaTeX
+                    PDF output.
+                </div>
+
+                <!-- Visual Preview Pane -->
+                <div class="visual-container active" id="visual-pane">
+                    <div class="resume-paper" id="resume-preview"></div>
+                </div>
+
+                <!-- Code Preview Pane -->
+                <div class="code-container" id="code-pane">
+                    <pre><code id="latex-preview" class="language-latex"></code></pre>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+
+</html>
